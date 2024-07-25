@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/md-dark-deeppurple/theme.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+app-root {
+  height: 100vh;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.ctm_btn {
+  @apply bg-blue-500 active:bg-blue-400 ease-in-out duration-300 font-light text-sm text-white px-3 py-2 rounded-md hover:cursor-pointer drop-shadow-md
+}
