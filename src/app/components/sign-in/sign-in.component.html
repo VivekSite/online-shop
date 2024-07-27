@@ -1,0 +1,49 @@
+<form
+  [formGroup]="signInForm"
+  (submit)="handlerSignIn()"
+  class="mt-5 flex flex-col gap-6"
+>
+  <div class="ctm_input">
+    <p-floatLabel>
+      <input
+        id="email"
+        type="email"
+        pInputText
+        [ngClass]="{
+          'border-rose-600 outline outline-1 outline-rose-600':
+            isInValidField('email')
+        }"
+        formControlName="email"
+      />
+      <label for="email">Email</label>
+    </p-floatLabel>
+    <small class="text-rose-600" *ngIf="isInValidField('email')"
+      >Email is required</small
+    >
+  </div>
+
+  <div class="ctm_input">
+    <p-floatLabel>
+      <input
+        id="password"
+        type="password"
+        pInputText
+        formControlName="password"
+        [ngClass]="{
+          'border-rose-600 outline outline-1 outline-rose-600':
+            isInValidField('password')
+        }"
+      />
+      <label for="password">Password</label>
+    </p-floatLabel>
+    <small class="text-rose-600" *ngIf="isInValidField('password')"
+      >Password is required</small
+    >
+  </div>
+
+  <div>
+    <button class="ctm_btn w-full shadow-sm" (click)="handlerSignIn()">
+      Sign In
+    </button>
+  </div>
+</form>
