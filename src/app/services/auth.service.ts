@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 import { UserType } from '../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _registerUrl = 'http://localhost:8080/api/v1/auth/sign_up';
-  private _loginUrl = 'http://localhost:8080/api/v1/auth/sign_in';
+  private _registerUrl = `${environment.BASE_URL}/auth/sign_up`;
+  private _loginUrl = `${environment.BASE_URL}/auth/sign_in`;
 
   constructor(private http: HttpClient) {}
 
