@@ -25,9 +25,9 @@ export class HeaderComponent {
         label: 'Options',
         items: [
           {
-            label: 'Profile',
+            label: 'Account',
             icon: 'pi pi-user',
-            command: () => this.router.navigate(['/profile']),
+            command: () => this.router.navigate(['/account']),
           },
           {
             label: 'Wish list',

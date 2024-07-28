@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { AccountComponent } from './components/account/account.component';
 import { ProductComponent } from './components/product/product.component';
 import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
@@ -20,9 +20,9 @@ export const routes: Routes = [
     component: SignInComponent
   },
   {
-    path: 'profile',
+    path: 'account',
     canActivate: [authGuard],
-    component: ProfileComponent
+    component: AccountComponent
   },
   {
     path: 'product/:productId',

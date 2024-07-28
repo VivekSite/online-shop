@@ -1,0 +1,15 @@
+.account_card {
+  @apply w-[20rem] py-5 px-2 border-2 shadow-sm rounded-md hover:bg-slate-100 hover:cursor-pointer flex gap-2 items-center
+}
+
+.account_card span img {
+  @apply size-[4rem]
+}
+
+.account_card span p:first-child {
+  @apply font-semibold text-lg
+}
+
+.account_card span p:last-child {
+  @apply font-light text-sm
+}
