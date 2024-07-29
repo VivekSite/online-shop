@@ -1,16 +1,24 @@
-<nav
-  class="h-14 bg-slate-100 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem] glass-nav"
->
-  <div class="h-16 w-40 flex hover:cursor-pointer" (click)="navigate('/')">
-    <img src="online_shop_logo.png" alt="logo" class="drop-shadow-md" />
-    <span class="flex-1 flex-grow align-text-bottom pt-3">
+<nav class="nav_bar glass-nav">
+  <div class="h-16 w-40 flex hover:cursor-pointer">
+    <img
+      src="online_shop_logo.png"
+      alt="logo"
+      class="drop-shadow-md"
+      (click)="navigate('/')"
+    />
+    <span
+      class="flex-1 flex-grow align-text-bottom pt-3"
+      (click)="navigate('/')"
+    >
       <p class="text-s drop-shadow-md">
         <small class="text-blue-400">Online</small
         ><small class="text-slate-600">Shop</small>
       </p>
       <p class="text-[0.6rem] font-light drop-shadow-md">Easy Solution</p>
     </span>
+    <app-search-bar />
   </div>
+
   <div class="flex gap-3 items-center">
     <button
       class="ctm_btn"

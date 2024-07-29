@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -10,8 +8,12 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 interface SignInFormType {
   email: FormControl<string | null>;

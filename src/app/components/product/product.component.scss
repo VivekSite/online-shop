@@ -1,5 +1,5 @@
 .product_container {
-  @apply w-[18rem] border p-3 shadow-md rounded-md flex flex-col gap-2
+  @apply w-[18rem] border p-3 shadow-md rounded-md flex flex-col gap-3
 }
 
 .product_container {
@@ -9,11 +9,11 @@
 }
 
 .title {
-  @apply font-medium hover:text-blue-500 hover:cursor-pointer
+  @apply font-medium hover:text-blue-500 hover:cursor-pointer text-sm
 }
 
 .price {
-  @apply font-semibold text-2xl hover:cursor-pointer
+  @apply font-semibold text-xl hover:cursor-pointer
 }
 
 .price {
@@ -21,6 +21,6 @@
     @apply font-light
   }
   small {
-    @apply font-light text-sm
+    @apply font-light text-[0.7rem]
   }
 }
