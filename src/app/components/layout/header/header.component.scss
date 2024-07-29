@@ -8,3 +8,7 @@
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.37);
 }
+
+.nav_bar {
+  @apply h-14 bg-slate-100 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem]
+}

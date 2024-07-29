@@ -1,30 +1,57 @@
-<nav
-  class="h-14 bg-slate-100 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem] glass-nav"
->
-  <div
-    class="h-16 w-40 flex hover:cursor-pointer"
-    (click)="navigate('/')"
-  >
-    <img src="online_shop_logo.png" alt="logo" class="drop-shadow-md">
-    <span class="flex-1 flex-grow align-text-bottom pt-3">
-      <p class="text-s drop-shadow-md"><small class="text-blue-400">Online</small><small class="text-slate-600">Shop</small></p>
+<nav class="nav_bar glass-nav">
+  <div class="h-16 w-40 flex hover:cursor-pointer">
+    <img
+      src="online_shop_logo.png"
+      alt="logo"
+      class="drop-shadow-md"
+      (click)="navigate('/')"
+    />
+    <span
+      class="flex-1 flex-grow align-text-bottom pt-3"
+      (click)="navigate('/')"
+    >
+      <p class="text-s drop-shadow-md">
+        <small class="text-blue-400">Online</small
+        ><small class="text-slate-600">Shop</small>
+      </p>
       <p class="text-[0.6rem] font-light drop-shadow-md">Easy Solution</p>
     </span>
+    <app-search-bar />
   </div>
+
   <div class="flex gap-3 items-center">
-    <button class="ctm_btn" (click)="navigate('/sign-in')" *ngIf="!isLoggedIn()">Sign In</button>
-    <button class="ctm_btn" (click)="navigate('/sign-up')" *ngIf="!isLoggedIn()">Sign Up</button>
+    <button
+      class="ctm_btn"
+      (click)="navigate('/sign-in')"
+      *ngIf="!isLoggedIn()"
+    >
+      Sign In
+    </button>
+    <button
+      class="ctm_btn"
+      (click)="navigate('/sign-up')"
+      *ngIf="!isLoggedIn()"
+    >
+      Sign Up
+    </button>
     <div class="flex justify-center" *ngIf="isLoggedIn()">
       <p-menu #menu [model]="items" [popup]="true" class="mr-5" />
-      <p-button (onClick)="menu.toggle($event)">
-        <p-avatar 
-          icon="pi pi-user" 
-          shape="circle" 
-          styleClass="p-5" 
+      <button (click)="menu.toggle($event)">
+        <p-avatar
+          icon="pi pi-user"
+          shape="circle"
+          styleClass="p-5 text-blue-700 active:text-white active:bg-blue-400 shadow-md transition ease-in-out duration-500"
         />
-      </p-button>
+      </button>
+    </div>
+
+    <div class="flex justify-center hover:cursor-pointer" *ngIf="isLoggedIn()">
+      <p-avatar
+        icon="pi pi-shopping-cart"
+        shape="circle"
+        styleClass="p-5 bg-blue-500 active:bg-blue-400 transition duration-300 ease-in-out text-white shadow-md"
+      />
     </div>
   </div>
 </nav>
-<div>
-</div>
+<div></div>

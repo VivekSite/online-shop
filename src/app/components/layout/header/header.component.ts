@@ -1,16 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
-import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonModule, AvatarModule, CommonModule, MenuModule],
+  imports: [
+    ButtonModule,
+    AvatarModule,
+    CommonModule,
+    MenuModule,
+    SearchBarComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -25,9 +34,9 @@ export class HeaderComponent {
         label: 'Options',
         items: [
           {
-            label: 'Profile',
+            label: 'Account',
             icon: 'pi pi-user',
-            command: () => this.router.navigate(['/profile']),
+            command: () => this.router.navigate(['/account']),
           },
           {
             label: 'Wish list',
@@ -59,6 +68,6 @@ export class HeaderComponent {
   }
 
   isLoggedIn() {
-    return this._authService.IsLoggedIn();
+    return this._authService.getToken();
   }
 }
