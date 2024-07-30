@@ -1,7 +1,7 @@
 <form
   [formGroup]="searchForm"
   (submit)="handleSearch()"
-  class="h-full sm:flex justify-center items-center ml-5 gap-3 hidden"
+  class="h-full flex justify-center items-center sm:ml-5 gap-3"
 >
   <p-iconField iconPosition="left">
     <p-inputIcon styleClass="pi pi-search" />
@@ -11,7 +11,7 @@
       pInputText
       placeholder="Search"
       formControlName="query"
-      class="pl-10 py-1.5 border shadow-sm active:shadow-md"
+      class="pl-10 py-1.5 border w-40 sm:w-auto shadow-sm active:shadow-md glass_nav"
     />
   </p-iconField>
 </form>

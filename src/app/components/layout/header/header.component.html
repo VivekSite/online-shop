@@ -1,4 +1,4 @@
-<nav class="nav_bar glass-nav">
+<nav class="nav_bar glass_nav">
   <div class="h-16 w-40 flex hover:cursor-pointer">
     <img
       src="online_shop_logo.png"
@@ -6,10 +6,7 @@
       class="drop-shadow-md"
       (click)="navigate('/')"
     />
-    <span
-      class="flex-1 flex-grow align-text-bottom pt-3"
-      (click)="navigate('/')"
-    >
+    <span class="pt-3 hidden sm:flex sm:flex-col" (click)="navigate('/')">
       <p class="text-s drop-shadow-md">
         <small class="text-blue-400">Online</small
         ><small class="text-slate-600">Shop</small>
@@ -45,7 +42,7 @@
       </button>
     </div>
 
-    <div class="flex justify-center hover:cursor-pointer" *ngIf="isLoggedIn()">
+    <div class="flex justify-center hover:cursor-pointer" *ngIf="isLoggedIn()" (click)='navigate("/cart")'>
       <p-avatar
         icon="pi pi-shopping-cart"
         shape="circle"

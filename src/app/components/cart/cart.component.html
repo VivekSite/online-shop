@@ -1,1 +1,12 @@
-<p>cart works!</p>
+<div class="border shadow-md p-3 rounded-md">
+  <h2 class="text-4xl font-medium my-4">Shopping Cart</h2>
+  <hr />
+  <app-cart-product
+    *ngFor="let product of userCartData.products"
+    class="w-full text-wrap flex justify-center items-center border-b-2"
+    [product]="product"
+  />
+  <h2 class="text-right text-2xl my-4">
+    Subtotal: {{ subtotal }}
+  </h2>
+</div>

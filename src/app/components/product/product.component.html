@@ -1,13 +1,13 @@
 <div class="product_container">
   <div>
-    <img src="{{ image }}" class="h-full object-contain" />
+    <img src="{{ product.images[0] }}" class="h-full object-contain" />
   </div>
-  <p class="title">{{ title }}</p>
+  <p class="title">{{ product.title }}</p>
   <p class="price">
     <sup>₹</sup>{{ priceAfterDiscount }}
-    <small *ngIf="!!discount">
-      M.R.P:<del>{{ price }}</del> ({{ discount }}% off)
+    <small *ngIf="!!product.discount">
+      M.R.P:<del>{{ product.price }}</del> ({{ product.discount }}% off)
     </small>
   </p>
-  <button class="ctm_btn">Add to cart</button>
+  <button class="ctm_btn" (click)="AddThisProductToCart()">Add to cart</button>
 </div>
