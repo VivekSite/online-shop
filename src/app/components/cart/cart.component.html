@@ -6,7 +6,12 @@
     class="w-full text-wrap flex justify-center items-center border-b-2"
     [product]="product"
   />
-  <h2 class="text-right text-2xl my-4">
-    Subtotal: {{ subtotal }}
-  </h2>
+  <div class="flex flex-col justify-end">
+    <h2 class="text-right text-2xl my-4">
+      Subtotal: {{ getCartValue() }} <br>
+    </h2>
+    <button class="ctm_btn">
+      Proceed to Buy
+    </button>
+  </div>
 </div>

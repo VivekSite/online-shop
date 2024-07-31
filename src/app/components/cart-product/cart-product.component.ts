@@ -56,7 +56,9 @@ export class CartProductComponent {
   toggleCheckbox() {
     this.cartService
       .toggleProductSelection(this.checked, this.product._id._id)
-      .subscribe();
+      .subscribe((res) => {
+        this.cartService.setCartSubTotal = res.subTotal;
+      });
   }
 
   changeQuantity() {
@@ -65,6 +67,8 @@ export class CartProductComponent {
         this.selectedQuantity.quantity,
         this.product._id._id
       )
-      .subscribe();
+      .subscribe((res) => {
+        this.cartService.setCartSubTotal = res.subTotal;
+      });
   }
 }

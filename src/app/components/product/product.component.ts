@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { ProductType } from '../../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -14,7 +15,7 @@ export class ProductComponent {
   @Input() product!: ProductType;
   priceAfterDiscount!: number;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit() {
     this.priceAfterDiscount = Math.round(
@@ -26,5 +27,9 @@ export class ProductComponent {
     this.productService
       .addToCart(this.product._id)
       .subscribe((data) => console.log(data));
+  }
+
+  navigate(route: string, productId: string) {
+    this.router.navigate([route , productId]);
   }
 }

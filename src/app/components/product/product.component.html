@@ -1,9 +1,11 @@
 <div class="product_container">
-  <div>
+  <div (click)="navigate('product', product._id)">
     <img src="{{ product.images[0] }}" class="h-full object-contain" />
   </div>
-  <p class="title">{{ product.title }}</p>
-  <p class="price">
+  <p class="title" (click)="navigate('product', product._id)">
+    {{ product.title }}
+  </p>
+  <p class="price" (click)="navigate('product', product._id)">
     <sup>₹</sup>{{ priceAfterDiscount }}
     <small *ngIf="!!product.discount">
       M.R.P:<del>{{ product.price }}</del> ({{ product.discount }}% off)

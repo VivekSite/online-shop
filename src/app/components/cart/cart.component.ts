@@ -20,7 +20,6 @@ export class CartComponent {
     user_id: '',
     products: [],
   };
-  subtotal: number = 0;
   private userCartDataRef!: Subscription;
 
   constructor(private cartService: CartService) {}
@@ -28,7 +27,12 @@ export class CartComponent {
   ngOnInit() {
     this.userCartDataRef = this.cartService.getCartData().subscribe((res) => {
       this.userCartData = res.cartData;
+      this.cartService.setCartSubTotal = res.subTotal;
     });
+  }
+
+  getCartValue() {
+    return this.cartService.getCartSubTotal;
   }
 
   ngOnDestroy() {

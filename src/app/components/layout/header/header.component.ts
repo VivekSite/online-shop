@@ -49,6 +49,7 @@ export class HeaderComponent {
           {
             label: 'Cart',
             icon: 'pi pi-shopping-cart',
+            command: () => this.router.navigate(['/cart'])
           },
           {
             label: 'LogOut',
