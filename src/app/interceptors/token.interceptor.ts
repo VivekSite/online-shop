@@ -7,7 +7,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   let tokenizedReq = req.clone({
     setHeaders: {
-      Authorization: `Bearer ${authService.IsLoggedIn()}`,
+      Authorization: `Bearer ${authService.getToken()}`,
     }
   })
 

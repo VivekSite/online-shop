@@ -1,0 +1,12 @@
+.price {
+  @apply font-semibold text-xl ml-4
+}
+
+.price {
+  sup {
+    @apply font-light
+  }
+  small {
+    @apply font-light text-[0.7rem]
+  }
+}

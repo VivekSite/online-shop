@@ -32,11 +32,8 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  verifyToken(token: string | null): Observable<boolean> {
-    return this.http.post<any>(this._verifyTokenUrl, { token }).pipe(
-      map(() => true),
-      catchError(() => of(false))
-    );
+  verifyToken(token: string | null) {
+    return this.http.post<any>(this._verifyTokenUrl, { token });
   }
 
   getToken() {

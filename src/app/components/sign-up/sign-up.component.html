@@ -1,87 +1,91 @@
-<form
-  [formGroup]="signUpForm"
-  (submit)="handlerSignUp()"
-  class="mt-5 flex flex-col gap-6"
->
-  <div class="ctm_input">
-    <p-floatLabel>
-      <input
-        id="name"
-        type="text"
-        pInputText
-        [ngClass]="{
-          'border-rose-600 outline outline-1 outline-rose-600':
-            isInValidField('name')
-        }"
-        formControlName="name"
-      />
-      <label for="name">Username</label>
-    </p-floatLabel>
-    <small class="text-rose-600" *ngIf="isInValidField('name')"
-      >Name is required</small
-    >
-  </div>
+<div class="flex justify-center">
+  <form
+    [formGroup]="signUpForm"
+    (submit)="handlerSignUp()"
+    class="mt-5 flex flex-col gap-6"
+  >
+    <div class="ctm_input">
+      <p-floatLabel>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('name')
+          }"
+          formControlName="name"
+        />
+        <label for="name">Username</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('name')"
+        >Name is required</small
+      >
+    </div>
 
-  <div class="ctm_input">
-    <p-floatLabel>
-      <input
-        id="email"
-        type="email"
-        pInputText
-        [ngClass]="{
-          'border-rose-600 outline outline-1 outline-rose-600':
-            isInValidField('email')
-        }"
-        formControlName="email"
-      />
-      <label for="email">Email</label>
-    </p-floatLabel>
-    <small class="text-rose-600" *ngIf="isInValidField('email')"
-      >Please enter a valid email</small
-    >
-  </div>
+    <div class="ctm_input">
+      <p-floatLabel>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('email')
+          }"
+          formControlName="email"
+        />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('email')"
+        >Please enter a valid email</small
+      >
+    </div>
 
-  <div class="ctm_input">
-    <p-floatLabel>
-      <input
-        id="password"
-        type="password"
-        pInputText
-        formControlName="password"
-        [ngClass]="{
-          'border-rose-600 outline outline-1 outline-rose-600':
-            isInValidField('password')
-        }"
-      />
-      <label for="password">Password</label>
-    </p-floatLabel>
-    <small class="text-rose-600" *ngIf="isInValidField('password')"
-      >Password must be at least 8 characters long and <br>contain  at least one uppercase letter, one lowercase <br>letter, one digit, and one special character</small
-    >
-  </div>
+    <div class="ctm_input">
+      <p-floatLabel>
+        <input
+          id="password"
+          type="password"
+          pInputText
+          formControlName="password"
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('password')
+          }"
+        />
+        <label for="password">Password</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('password')"
+        >Password must be at least 8 characters long and <br />contain at least
+        one uppercase letter, one lowercase <br />letter, one digit, and one
+        special character</small
+      >
+    </div>
 
-  <div class="ctm_input">
-    <p-floatLabel>
-      <input
-        id="confirmPassword"
-        type="password"
-        pInputText
-        formControlName="confirmPassword"
-        [ngClass]="{
-          'border-rose-600 outline outline-1 outline-rose-600':
-            isInValidField('confirmPassword')
-        }"
-      />
-      <label for="confirmPassword">Confirm Password</label>
-    </p-floatLabel>
-    <small class="text-rose-600" *ngIf="isInValidField('confirmPassword')"
-      >Password didn't match!</small
-    >
-  </div>
+    <div class="ctm_input">
+      <p-floatLabel>
+        <input
+          id="confirmPassword"
+          type="password"
+          pInputText
+          formControlName="confirmPassword"
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('confirmPassword')
+          }"
+        />
+        <label for="confirmPassword">Confirm Password</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('confirmPassword')"
+        >Password didn't match!</small
+      >
+    </div>
 
-  <div>
-    <button class="ctm_btn w-full shadow-sm" (click)="handlerSignUp()">
-      Sign Up
-    </button>
-  </div>
-</form>
+    <div>
+      <button class="ctm_btn w-full shadow-sm" (click)="handlerSignUp()">
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>

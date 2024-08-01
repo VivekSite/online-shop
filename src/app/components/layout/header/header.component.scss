@@ -1,4 +1,4 @@
-.glass-nav {
+.glass_nav {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1),
@@ -10,5 +10,5 @@
 }
 
 .nav_bar {
-  @apply h-14 bg-slate-100 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem]
+  @apply h-14 shadow-md flex items-center justify-between px-5 lg:px-[10rem] xl:px-[15rem]
 }

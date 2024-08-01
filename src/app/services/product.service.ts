@@ -8,6 +8,7 @@ import { ProductType } from '../types';
 })
 export class ProductService {
   private _productUrl = `${environment.BASE_URL}/product`;
+  private _cartUrl: string = `${environment.BASE_URL}/user/cart`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,5 +19,18 @@ export class ProductService {
   getProductsByQuery(query: string) {
     const searchUrl: string = `${environment.BASE_URL}/product/search?query=${query}`;
     return this.http.get<{ products: ProductType[] }>(searchUrl);
+  }
+
+  addToCart(productId: string) {
+    return this.http.post<{ success: boolean; message: string }>(
+      this._cartUrl,
+      { productId }
+    );
+  }
+
+  getProductById(productId: string) {
+    return this.http.get<{ success: boolean; products: ProductType[] }>(
+      `${this._productUrl}?productId=${productId}`
+    );
   }
 }

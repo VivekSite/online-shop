@@ -1,0 +1,27 @@
+<p-checkbox
+  [(ngModel)]="checked"
+  [binary]="true"
+  inputId="binary"
+  class="border-2 rounded-md shadow-sm"
+  (onChange)="toggleCheckbox()"
+/>
+<div class="h-40 w-24 sm:h-56 sm:w-36 hover:cursor-pointer flex">
+  <img [src]="product._id.images[0]" class="h-full object-contain p-4" />
+</div>
+<div class="flex flex-col flex-1 text-wrap">
+  <h2 class="hover:cursor-pointer">{{ product._id.title }}</h2>
+  <p-dropdown
+    [options]="quantity"
+    [(ngModel)]="selectedQuantity"
+    optionLabel="quantity"
+    class="border rounded-md shadow-sm max-w-fit mt-4"
+    styleClass="text-xs p-0"
+    (onChange)="changeQuantity()"
+  />
+</div>
+<p class="price">
+  <sup>₹</sup>{{ priceAfterDiscount }} <br />
+  <small *ngIf="!!product._id.discount">
+    M.R.P:<del>{{ product._id.price }}</del> ({{ product._id.discount }}% off)
+  </small>
+</p>

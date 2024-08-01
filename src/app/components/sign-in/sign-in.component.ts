@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ReactiveFormsModule,
@@ -33,7 +33,7 @@ interface SignInFormType {
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private fb: FormBuilder,

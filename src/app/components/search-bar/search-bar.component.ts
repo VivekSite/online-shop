@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ReactiveFormsModule,
@@ -29,7 +29,7 @@ interface SearchFormType {
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss',
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
   searchForm!: FormGroup<SearchFormType>;
 
   constructor(private router: Router, private fb: FormBuilder) {}

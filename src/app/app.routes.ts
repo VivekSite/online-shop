@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
+
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { AccountComponent } from './components/account/account.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { AccountComponent } from './components/account/account.component';
-import { ProductComponent } from './components/product/product.component';
-import { authGuard } from './guards/auth.guard';
-import { HomeComponent } from './components/home/home.component';
 import { SearchComponent } from './components/search/search.component';
+import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
   {
@@ -26,8 +28,13 @@ export const routes: Routes = [
     component: AccountComponent
   },
   {
+    path: 'cart',
+    canActivate: [authGuard],
+    component: CartComponent
+  },
+  {
     path: 'product/:productId',
-    component: ProductComponent
+    component: ProductDetailComponent,
   },
   {
     path: 'search',

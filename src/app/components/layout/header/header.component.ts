@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
@@ -23,7 +23,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   constructor(private _authService: AuthService, private router: Router) {}
@@ -49,6 +49,7 @@ export class HeaderComponent {
           {
             label: 'Cart',
             icon: 'pi pi-shopping-cart',
+            command: () => this.router.navigate(['/cart'])
           },
           {
             label: 'LogOut',

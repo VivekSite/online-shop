@@ -20,3 +20,17 @@ export interface ProductType {
   updated_at: number;
   created_at: number;
 }
+
+export interface CartDataType {
+  _id: string;
+  user_id: string;
+  products: {
+    _id: ProductType,
+    quantity: number;
+    isSelected: boolean;
+  }[]
+}
+
+export interface CartWithSubTotal extends CartDataType {
+  total: number;
+}

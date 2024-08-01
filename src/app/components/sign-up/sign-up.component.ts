@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
@@ -34,7 +34,7 @@ interface SignUpFormType {
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private fb: FormBuilder,
