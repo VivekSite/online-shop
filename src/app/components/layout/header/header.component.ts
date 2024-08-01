@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Orders',
             icon: 'pi pi-truck',
+            command: () => this.router.navigate(['/orders']),
           },
           {
             label: 'Cart',

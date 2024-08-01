@@ -8,6 +8,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SearchComponent } from './components/search/search.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,11 @@ export const routes: Routes = [
     path: 'cart',
     canActivate: [authGuard],
     component: CartComponent
+  },
+  {
+    path: 'orders',
+    canActivate: [authGuard],
+    component: OrdersComponent
   },
   {
     path: 'product/:productId',

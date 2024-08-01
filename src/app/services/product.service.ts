@@ -9,6 +9,7 @@ import { ProductType } from '../types';
 export class ProductService {
   private _productUrl = `${environment.BASE_URL}/product`;
   private _cartUrl: string = `${environment.BASE_URL}/user/cart`;
+  private _sellerUrl: string = `${environment.BASE_URL}/seller`;
 
   constructor(private http: HttpClient) {}
 
@@ -32,5 +33,9 @@ export class ProductService {
     return this.http.get<{ success: boolean; products: ProductType[] }>(
       `${this._productUrl}?productId=${productId}`
     );
+  }
+
+  getMerchantNameById(sellerId: string) {
+    return this.http.get<{ success: boolean, merchant_name: string }>(`${this._sellerUrl}/merchant_name?sellerId=${sellerId}`)
   }
 }
