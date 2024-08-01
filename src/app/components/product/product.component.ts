@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { ProductType } from '../../types';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   @Input() product!: ProductType;
   priceAfterDiscount!: number;
 

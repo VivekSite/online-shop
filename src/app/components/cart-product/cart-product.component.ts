@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +25,7 @@ interface City {
   templateUrl: './cart-product.component.html',
   styleUrl: './cart-product.component.scss',
 })
-export class CartProductComponent {
+export class CartProductComponent implements OnInit {
   @Input() product!: CartProduct;
   priceAfterDiscount!: number;
   checked!: boolean;

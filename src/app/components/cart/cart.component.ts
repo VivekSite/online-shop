@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CartService } from '../../services/cart.service';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
-export class CartComponent {
+export class CartComponent implements OnInit, OnDestroy {
   userCartData: CartDataType = {
     _id: '',
     user_id: '',

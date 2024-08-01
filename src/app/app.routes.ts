@@ -34,7 +34,7 @@ export const routes: Routes = [
   },
   {
     path: 'product/:productId',
-    component: ProductDetailComponent
+    component: ProductDetailComponent,
   },
   {
     path: 'search',

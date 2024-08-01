@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ProductComponent } from '../product/product.component';
 import { ProductService } from '../../services/product.service';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit, OnDestroy {
   products: ProductType[] = [];
   private productRef!: Subscription;
   private queryParamsRef!: Subscription;

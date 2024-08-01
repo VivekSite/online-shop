@@ -27,4 +27,10 @@ export class ProductService {
       { productId }
     );
   }
+
+  getProductById(productId: string) {
+    return this.http.get<{ success: boolean; products: ProductType[] }>(
+      `${this._productUrl}?productId=${productId}`
+    );
+  }
 }
