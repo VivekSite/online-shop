@@ -1,42 +1,48 @@
-import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { Routes } from '@angular/router';
 
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { WishlistsComponent } from './components/wishlists/wishlists.component';
 import { AccountComponent } from './components/account/account.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SearchComponent } from './components/search/search.component';
+import { OrdersComponent } from './components/orders/orders.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
-import { OrdersComponent } from './components/orders/orders.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: 'sign-in',
-    component: SignInComponent
+    component: SignInComponent,
   },
   {
     path: 'account',
     canActivate: [authGuard],
-    component: AccountComponent
+    component: AccountComponent,
   },
   {
     path: 'cart',
     canActivate: [authGuard],
-    component: CartComponent
+    component: CartComponent,
   },
   {
     path: 'orders',
     canActivate: [authGuard],
-    component: OrdersComponent
+    component: OrdersComponent,
+  },
+  {
+    path: 'wishlists',
+    canActivate: [authGuard],
+    component: WishlistsComponent,
   },
   {
     path: 'product/:productId',
@@ -44,6 +50,6 @@ export const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchComponent
-  }
+    component: SearchComponent,
+  },
 ];

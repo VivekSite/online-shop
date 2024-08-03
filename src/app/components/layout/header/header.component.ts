@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Wish list',
             icon: 'pi pi-list',
+            command: () => this.router.navigate(['/wishlists']),
           },
           {
             label: 'Orders',

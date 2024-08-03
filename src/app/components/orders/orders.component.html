@@ -1,1 +1,6 @@
-<p>orders works!</p>
+<div>
+  <app-order 
+    *ngFor="let order of orders"
+    [order]="order"
+  />
+</div>
