@@ -25,7 +25,7 @@ export interface CartDataType {
   _id: string;
   user_id: string;
   products: {
-    _id: ProductType;
+    product: ProductType;
     quantity: number;
     isSelected: boolean;
   }[];
@@ -35,12 +35,33 @@ export interface CartWithSubTotal extends CartDataType {
   total: number;
 }
 
+export interface AddressType {
+  _id: string;
+  user_id: string;
+  full_name: string,
+  mobile_number: string,
+  country: string,
+  state: string,
+  city: string,
+  pin_code: string,
+  landmark: string,
+  address: {
+    line1: String,
+    line2: String,
+  },
+  is_default: boolean,
+  updated_at: number,
+  created_at: number,
+  updatedAt: string,
+  createdAt: string,
+}
+
 export interface OrderType {
   _id: string;
   user_id: string;
   product: ProductType;
   quantity: number;
-  shipping_address: string;
+  shipping_address: AddressType;
   shipping_status: 'pending' | 'complete' | 'cancelled';
   payment_method: 'Pay on Delivery' | 'UPI' | 'Credit Card';
   payment_status: 'pending' | 'complete' | 'cancelled';
@@ -48,7 +69,6 @@ export interface OrderType {
   order_summary: {
     Subtotal: number | null;
     Shipping: number | null;
-    Cash: number | null;
     Total: number | null;
     Promotion_Applied: number | null;
     GrandTotal: number | null;
@@ -59,8 +79,4 @@ export interface OrderType {
   created_at: number | null;
   updatedAt: string;
   createdAt: string;
-}
-
-export interface OrderSummaryType {
-  
 }

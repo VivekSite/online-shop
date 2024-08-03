@@ -23,23 +23,12 @@ export class OrderService {
     addressId: string,
     quantity: number,
     payment_method: string,
-    payment_status: string,
-    order_summary: {
-      Subtotal: Number;
-      Shipping: Number;
-      Cash: Number;
-      Total: Number;
-      Promotion_Applied: Number;
-      GrandTotal: Number;
-    }
   ) {
     return this.http.post(`${this.orderUrl}/add`, {
       productId,
       addressId,
       quantity,
       payment_method,
-      payment_status,
-      order_summary
     });
   }
 }
