@@ -11,6 +11,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AccountManageComponent } from './components/account-manage/account-manage.component';
+import { PlaceOrderComponent } from './components/place-order/place-order.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,11 @@ export const routes: Routes = [
     path: 'orders',
     canActivate: [authGuard],
     component: OrdersComponent,
+  },
+  {
+    path: "buy/:productId",
+    canActivate: [authGuard],
+    component: PlaceOrderComponent
   },
   {
     path: 'wishlists',

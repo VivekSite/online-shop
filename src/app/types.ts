@@ -5,18 +5,18 @@ export interface UserType {
 }
 
 export interface UserModelType {
-  name: string,
-  email: string,
-  country: string,
-  mobile: string,
-  profileImage: string,
-  isEmailVerified: boolean,
-  isMobileVerified: boolean,
-  isDeleted: boolean,
-  updated_at: number,
-  created_at: number,
-  updatedAt: string,
-  createdAt: string,
+  name: string;
+  email: string;
+  country: string;
+  mobile: string;
+  profileImage: string;
+  isEmailVerified: boolean;
+  isMobileVerified: boolean;
+  isDeleted: boolean;
+  updated_at: number;
+  created_at: number;
+  updatedAt: string;
+  createdAt: string;
 }
 
 export interface ProductType {
@@ -53,22 +53,19 @@ export interface CartWithSubTotal extends CartDataType {
 export interface AddressType {
   _id: string;
   user_id: string;
-  full_name: string,
-  mobile_number: string,
-  country: string,
-  state: string,
-  city: string,
-  pin_code: string,
-  landmark: string,
-  address: {
-    line1: String,
-    line2: String,
-  },
-  is_default: boolean,
-  updated_at: number,
-  created_at: number,
-  updatedAt: string,
-  createdAt: string,
+  full_name: string;
+  mobile_number: string;
+  country: string;
+  state: string;
+  city: string;
+  pin_code: string;
+  landmark: string;
+  address: string;
+  is_default: boolean;
+  updated_at: number;
+  created_at: number;
+  updatedAt: string;
+  createdAt: string;
 }
 
 export interface OrderType {

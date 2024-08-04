@@ -59,8 +59,7 @@
         </p>
         <p-overlayPanel #shipTo>
           <p class="font-bold text-sm">{{ orderAddress.full_name }}</p>
-          <p class="font-medium text-sm">{{ orderAddress.address.line1 }}</p>
-          <p class="font-medium text-sm">{{ orderAddress.address.line2 }}</p>
+          <p class="font-medium text-sm">{{ orderAddress.address }}</p>
           <p class="font-medium text-sm">
             {{ orderAddress.city }}, {{ orderAddress.state }}
             {{ orderAddress.pin_code }}

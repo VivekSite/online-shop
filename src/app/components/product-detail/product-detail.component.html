@@ -37,7 +37,7 @@
       <button class="ctm_btn" (click)="AddThisProductToCart()" [disabled]="!product.inStock">
         Add to cart
       </button>
-      <button class="ctm_btn" [disabled]="!product.inStock">Buy Now</button>
+      <button class="ctm_btn" [disabled]="!product.inStock" (click)="navigate('buy', product._id)">Buy Now</button>
     </div>
 
     <!-- Offers Section starts from here -->

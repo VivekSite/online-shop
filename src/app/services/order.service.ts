@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
-import { OrderType } from '../types';
+import { OrderType, ProductType } from '../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
   private orderUrl: string = `${environment.BASE_URL}/orders`;
+  private productUrl: string = `${environment.BASE_URL}/products`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class OrderService {
     productId: string,
     addressId: string,
     quantity: number,
-    payment_method: string,
+    payment_method: string
   ) {
     return this.http.post(`${this.orderUrl}/add`, {
       productId,
