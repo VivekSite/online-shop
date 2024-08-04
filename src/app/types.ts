@@ -4,6 +4,21 @@ export interface UserType {
   password: string;
 }
 
+export interface UserModelType {
+  name: string,
+  email: string,
+  country: string,
+  mobile: string,
+  profileImage: string,
+  isEmailVerified: boolean,
+  isMobileVerified: boolean,
+  isDeleted: boolean,
+  updated_at: number,
+  created_at: number,
+  updatedAt: string,
+  createdAt: string,
+}
+
 export interface ProductType {
   _id: string;
   title: string;

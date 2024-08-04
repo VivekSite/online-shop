@@ -28,6 +28,10 @@ app-root {
   @apply bg-blue-500 active:bg-blue-400 ease-in-out duration-300 font-light text-sm text-white px-3 py-2 rounded-md hover:cursor-pointer drop-shadow-md disabled:cursor-default disabled:active:bg-blue-400 disabled:bg-blue-400;
 }
 
+.ctm_out_btn {
+  @apply active:bg-blue-500 active:text-white ease-in-out duration-200 text-sm px-3 py-2 rounded-lg hover:cursor-pointer drop-shadow-md disabled:cursor-default disabled:active:bg-blue-400 border;
+}
+
 .ctm_input {
   @apply w-auto md:w-[25rem];
 }

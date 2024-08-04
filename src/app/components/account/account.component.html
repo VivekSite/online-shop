@@ -1,5 +1,5 @@
 <div class="flex flex-wrap gap-5 justify-center lg:justify-self-auto">
-  <div class="account_card">
+  <div class="account_card" (click)="navigate('/orders')">
     <span>
       <img src="orders_logo.png" alt="orders" />
     </span>
@@ -9,7 +9,7 @@
     </span>
   </div>
 
-  <div class="account_card">
+  <div class="account_card" (click)="navigate('account/manage')">
     <span>
       <img src="security_lock.png" alt="orders" />
     </span>

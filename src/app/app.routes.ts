@@ -10,6 +10,7 @@ import { SearchComponent } from './components/search/search.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { AccountManageComponent } from './components/account-manage/account-manage.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     path: 'account',
     canActivate: [authGuard],
     component: AccountComponent,
+  },
+  {
+    path: 'account/manage',
+    canActivate: [authGuard],
+    component: AccountManageComponent
   },
   {
     path: 'cart',
