@@ -25,15 +25,19 @@
     <small class="font-light text-sm" *ngIf="!!product.discount">
       M.R.P:<del>{{ product.price }}</del>
     </small>
-    <p [style.color]="product.inStock ? 'green' : 'red'">
+    <p [style.color]="product.inStock ? 'green' : 'red'" class="font-semibold">
       {{ product.inStock ? "In Stock" : "Out Of Stock" }}
+    </p>
+    <p>
+      <span class="font-semibold"> Sold By:  </span>
+      <span class="font-medium capitalize">{{ merchant_name }}</span>
     </p>
 
     <div class="flex gap-3 mt-2 mb-3">
       <button class="ctm_btn" (click)="AddThisProductToCart()" [disabled]="!product.inStock">
         Add to cart
       </button>
-      <button class="ctm_btn" [disabled]="!product.inStock">Buy Now</button>
+      <button class="ctm_btn" [disabled]="!product.inStock" (click)="navigate('buy', product._id)">Buy Now</button>
     </div>
 
     <!-- Offers Section starts from here -->

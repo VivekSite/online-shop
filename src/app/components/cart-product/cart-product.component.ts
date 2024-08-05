@@ -9,7 +9,7 @@ import { ProductType } from '../../types';
 import { CartService } from '../../services/cart.service';
 
 interface CartProduct {
-  _id: ProductType;
+  product: ProductType;
   quantity: number;
   isSelected: boolean;
 }
@@ -26,7 +26,7 @@ interface City {
   styleUrl: './cart-product.component.scss',
 })
 export class CartProductComponent implements OnInit {
-  @Input() product!: CartProduct;
+  @Input() productData!: CartProduct;
   priceAfterDiscount!: number;
   checked!: boolean;
 
@@ -35,12 +35,12 @@ export class CartProductComponent implements OnInit {
 
   constructor(private cartService: CartService) {}
   ngOnInit() {
-    this.checked = this.product.isSelected;
-    this.selectedQuantity = { quantity: this.product.quantity}
+    this.checked = this.productData.isSelected;
+    this.selectedQuantity = { quantity: this.productData.quantity}
 
-    const price = this.product._id.price;
+    const price = this.productData.product.price;
     this.priceAfterDiscount = Math.round(
-      price - price * (this.product._id.discount / 100)
+      price - price * (this.productData.product.discount / 100)
     );
 
     this.quantity = [
@@ -55,7 +55,7 @@ export class CartProductComponent implements OnInit {
 
   toggleCheckbox() {
     this.cartService
-      .toggleProductSelection(this.checked, this.product._id._id)
+      .toggleProductSelection(this.checked, this.productData.product._id)
       .subscribe((res) => {
         this.cartService.setCartSubTotal = res.subTotal;
       });
@@ -65,7 +65,7 @@ export class CartProductComponent implements OnInit {
     this.cartService
       .updateProductQuantity(
         this.selectedQuantity.quantity,
-        this.product._id._id
+        this.productData.product._id
       )
       .subscribe((res) => {
         this.cartService.setCartSubTotal = res.subTotal;

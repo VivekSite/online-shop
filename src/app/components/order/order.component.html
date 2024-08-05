@@ -1,0 +1,144 @@
+<div class="border rounded-md">
+  <!-- Order Header -->
+  <div class="bg-slate-100 p-3 flex justify-between">
+    <div class="flex items-center justify-between gap-2 md:gap-3">
+      <span class="hidden md:block">
+        <h3 class="font-medium text-[0.8rem]">ORDER PLACED</h3>
+        <p class="text-xs">{{ orderDate }}</p></span
+      >
+      <span class="hidden md:block">
+        <h3 class="font-medium text-[0.8rem]">QUANTITY</h3>
+        <p class="text-xs">{{ order.quantity }}</p></span
+      >
+      <span class="hidden md:block">
+        <h3 class="font-medium text-[0.8rem]">TOTAL</h3>
+        <p class="text-xs">₹{{ order.order_summary?.Total }}</p></span
+      >
+      <span class="hidden md:block">
+        <h3 class="font-medium text-[0.8rem]">SHIPING</h3>
+        <p class="text-xs">{{ order.shipping_status }}</p></span
+      >
+      <span class="hidden md:block">
+        <h3 class="font-medium text-[0.8rem]">PAYMENT</h3>
+        <p class="text-xs">{{ order.payment_status }}</p></span
+      >
+      <span
+        class="md:hidden pi pi-ellipsis-v hover:cursor-pointer bg-blue-500 active:bg-blue-400 ease-in-out duration-300 px-1 py-3 rounded-md text-white"
+        (click)="menu.toggle($event)"
+      >
+      </span>
+      <p-overlayPanel #menu class="md:hidden">
+        <span class="flex justify-between items-center gap-5">
+          <h3 class="font-semibold text-[0.8rem]">ORDER PLACED:</h3>
+          <p class="text-xs">{{ orderDate }}</p>
+        </span>
+        <span class="flex justify-between items-center gap-5">
+          <h3 class="font-semibold text-[0.8rem]">SHIPING STATUS:</h3>
+          <p class="text-xs">{{ order.shipping_status }}</p>
+        </span>
+        <span class="flex justify-between items-center gap-5">
+          <h3 class="font-semibold text-[0.8rem]">PAYMENT STATUS:</h3>
+          <p class="text-xs">{{ order.payment_status }}</p>
+        </span>
+        <span class="flex justify-between items-center gap-5">
+          <h3 class="font-semibold text-[0.8rem]">QUANTITY:</h3>
+          <p class="text-xs">{{ order.quantity }}</p>
+        </span>
+        <span class="flex justify-between items-center gap-5">
+          <h3 class="font-semibold text-[0.8rem]">TOTAL:</h3>
+          <p class="text-xs">₹{{ order.order_summary?.Total }}</p>
+        </span>
+      </p-overlayPanel>
+      <span>
+        <h3 class="font-medium text-[0.8rem]">SHIP TO</h3>
+        <p
+          class="text-xs hover:cursor-pointer hover:text-blue-500"
+          (click)="shipTo.toggle($event)"
+        >
+          {{ order.shipping_address.full_name }}
+        </p>
+        <p-overlayPanel #shipTo>
+          <p class="font-bold text-sm">{{ orderAddress.full_name }}</p>
+          <p class="font-medium text-sm">{{ orderAddress.address }}</p>
+          <p class="font-medium text-sm">
+            {{ orderAddress.city }}, {{ orderAddress.state }}
+            {{ orderAddress.pin_code }}
+          </p>
+          <p class="font-medium text-sm">{{ orderAddress.country }}</p>
+        </p-overlayPanel>
+      </span>
+    </div>
+    <!-- Order ID -->
+    <div class="flex items-center justify-between gap-5">
+      <button
+        (click)="orderSummary.toggle($event)"
+        class="ctm_btn"
+        style="font-size: x-small"
+      >
+        ORDER SUMMARY
+      </button>
+      <p-overlayPanel #orderSummary>
+        <div>
+          <span>
+            <h3 class="font-bold text-[0.8rem]">ORDER ID:</h3>
+            <p class="font-semibold text-xs">{{ order._id }}</p></span
+          >
+          <span class="flex justify-between items-center gap-5 mt-5">
+            <h2 class="font-medium text-sm">Item(s) Subtotal:</h2>
+            <p class="text-xs">₹{{ order.order_summary?.Subtotal }}</p>
+          </span>
+          <span class="flex justify-between items-center gap-5">
+            <h2 class="font-medium text-sm">Shipping:</h2>
+            <p class="text-xs">₹{{ order.order_summary?.Shipping }}</p>
+          </span>
+          <span class="flex justify-between items-center gap-5">
+            <h2 class="font-medium text-sm">Total:</h2>
+            <p class="text-xs">₹{{ order.order_summary?.Total }}</p>
+          </span>
+          <span class="flex justify-between items-center gap-5">
+            <h2 class="font-bold text-sm">Grand Total:</h2>
+            <p class="font-bold text-xs">
+              ₹{{ order.order_summary?.GrandTotal }}
+            </p>
+          </span>
+        </div>
+      </p-overlayPanel>
+    </div>
+  </div>
+
+  <!-- Order Body -->
+  <div class="flex justify-center items-center gap-5 p-4">
+    <div
+      class="w-[20rem] hover:cursor-pointer flex items-center justify-self-center"
+      (click)="navigate('/product', order.product._id)"
+    >
+      <img [src]="order.product.images[0]" />
+    </div>
+    <div>
+      <h2
+        class="text-sm font-medium hover:text-blue-500 hover:cursor-pointer"
+        (click)="navigate('/product', order.product._id)"
+      >
+        {{ order.product.title }}
+      </h2>
+      <button
+        class="bg-orange-300 active:bg-orange-400 ease-in-out duration-300 font-light text-sm px-3 py-2 rounded-md hover:cursor-pointer drop-shadow-md mt-3"
+        *ngIf="order.shipping_status === 'complete'"
+      >
+        Buy it again
+      </button>
+      <button
+        class="bg-rose-400 active:bg-rose-500 ease-in-out duration-300 font-light text-sm px-3 py-2 rounded-md hover:cursor-pointer drop-shadow-md mt-3 text-white"
+        *ngIf="!(order.shipping_status === 'complete')"
+      >
+        Cancel
+      </button>
+      <button
+        class="ctm_btn text-xs mx-2"
+        *ngIf="order.shipping_status === 'complete'"
+      >
+        Write a review
+      </button>
+    </div>
+  </div>
+</div>

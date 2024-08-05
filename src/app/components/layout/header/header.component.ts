@@ -41,10 +41,12 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Wish list',
             icon: 'pi pi-list',
+            command: () => this.router.navigate(['/wishlists']),
           },
           {
             label: 'Orders',
             icon: 'pi pi-truck',
+            command: () => this.router.navigate(['/orders']),
           },
           {
             label: 'Cart',

@@ -36,6 +36,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ];
   product!: ProductType;
   ProductRef!: Subscription;
+
+  merchant_name!: String;
+  merchantNameRef!: Subscription;
   priceAfterDiscount!: number;
 
   constructor(
@@ -55,6 +58,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             this.product.price -
               this.product.price * (this.product.discount / 100)
           );
+
+          this.merchantNameRef = this.productService
+            .getMerchantNameById(this.product.sellerId)
+            .subscribe((res) => {
+              this.merchant_name = res.merchant_name;
+            });
         });
     });
   }
@@ -71,5 +80,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ProductRef.unsubscribe();
+    this.merchantNameRef.unsubscribe();
   }
 }
