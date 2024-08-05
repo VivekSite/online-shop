@@ -2,7 +2,22 @@
   <div>
     <img src="" alt="" />
   </div>
-  <h2 class="font-semibold my-3">1. Select Delivery Address</h2>
+
+  <h2 class="font-semibold my-3 text-2xl">1. Select Quantity</h2>
+  <div class="border shadow-sm p-5 rounded-md">
+    <div class="flex flex-col flex-1 text-wrap">
+      <h2 class="hover:cursor-pointer">{{ product.title }}</h2>
+      <p-dropdown
+        [options]="quantity"
+        [(ngModel)]="selectedQuantity"
+        optionLabel="quantity"
+        class="border rounded-md shadow-sm max-w-fit mt-4"
+        styleClass="text-xs p-0"
+      />
+    </div>
+  </div>
+
+  <h2 class="font-semibold my-3 text-2xl">2. Select Delivery Address</h2>
   <div class="border shadow-sm p-5 rounded-md flex flex-col gap-3">
     <div *ngFor="let address of addresses" class="flex gap-2 items-center">
       <p-radioButton
@@ -12,7 +27,7 @@
         [(ngModel)]="selectedAddress"
         class="border rounded-full shadow-sm"
       />
-      <label [for]="address._id" class="ml-2">
+      <label [for]="address._id" class="ml-2 hover:cursor-pointer">
         <p class="font-medium text-sm">
           <small class="font-bold text-sm">{{ address.full_name }}</small>
           {{ address.address }}, {{ address.city }}, {{ address.state }},
@@ -22,7 +37,7 @@
       </label>
     </div>
     <span
-      class="pi pi-plus w-fit mt-1 border px-4 py-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 shadow-sm"
+      class="pi pi-plus w-fit mt-1 border px-4 py-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 shadow-sm text-cyan-500"
       (click)="createAddressModal = true"
     >
       Add new address
@@ -183,20 +198,33 @@
           <button class="ctm_btn_danger" (click)="createAddressModal = false">
             Cancel
           </button>
-          <button
-            class="ctm_btn"
-            type="submit"
-            (click)="createAddress()"
-          >
+          <button class="ctm_btn" type="submit" (click)="createAddress()">
             Create
           </button>
         </div>
       </form>
     </p-dialog>
   </div>
-  
-  <h2 class="font-semibold my-3">1. Select Delivery Address</h2>
-  <div class="border shadow-sm p-5 rounded-md"></div>
-  <h2 class="font-semibold my-3">1. Select Delivery Address</h2>
-  <div class="border shadow-sm p-5 rounded-md"></div>
+
+  <h2 class="font-medium my-3 text-2xl text-rose-700">
+    3. Select a payment method
+  </h2>
+  <div class="border shadow-sm p-5 rounded-md flex flex-col gap-3">
+    <div *ngFor="let type of paymentTypes" class="flex gap-2 items-center">
+      <p-radioButton
+        [inputId]="type.name"
+        name="payment"
+        [value]="type"
+        [(ngModel)]="selectedPaymentType"
+        class="border rounded-full shadow-sm"
+      />
+      <label [for]="type.name" class="ml-2 hover:cursor-pointer">
+        {{ type.value }}
+      </label>
+    </div>
+  </div>
+
+  <div class="my-3">
+    <button class="ctm_btn" (click)="placeOrder()">Place Order</button>
+  </div>
 </div>

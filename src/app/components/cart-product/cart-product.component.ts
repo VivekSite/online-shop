@@ -14,7 +14,7 @@ interface CartProduct {
   isSelected: boolean;
 }
 
-interface City {
+interface Quantity {
   quantity: number;
 }
 
@@ -30,8 +30,8 @@ export class CartProductComponent implements OnInit {
   priceAfterDiscount!: number;
   checked!: boolean;
 
-  selectedQuantity: City = { quantity: 1 };
-  quantity: City[] | undefined;
+  selectedQuantity: Quantity = { quantity: 1 };
+  quantity: Quantity[] | undefined;
 
   constructor(private cartService: CartService) {}
   ngOnInit() {
