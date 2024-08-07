@@ -23,6 +23,12 @@ export class AccountService {
     );
   }
 
+  DeleteAddress(AddressId: string) {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `${this.addressUrl}/${AddressId}`
+    );
+  }
+
   CreateAddress(CreateAddressFormData: {
     full_name: string;
     mobile_number: string;

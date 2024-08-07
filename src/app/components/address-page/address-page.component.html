@@ -1,0 +1,11 @@
+<div class="flex flex-wrap gap-5 justify-center lg:justify-self-auto">
+  <app-address
+    *ngFor="let address of addresses"
+    [address]="address"
+    [deleteAddress]="deleteAddress"
+  >
+  </app-address>
+</div>
+<div class="flex justify-center mt-5">
+  <button class="ctm_btn">Add new address</button>
+</div>

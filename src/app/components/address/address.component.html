@@ -1,0 +1,29 @@
+<div
+  class="w-[20rem] sm:w-[30rem] md:w-[22rem] py-5 px-2 border shadow-md rounded-md hover:bg-slate-100"
+>
+  <div>
+    <h2 class="font-semibold flex justify-between">
+      {{ address.full_name }}
+      <span class="text-blue-500 font-light text-sm" *ngIf="address.is_default">
+        Default
+      </span>
+      <span
+        class="text-blue-500 font-light text-sm hover:bg-blue-200 active:bg-blue-100 p-2 rounded-md hover:cursor-pointer"
+        *ngIf="!address.is_default"
+      >
+        Make Default
+      </span>
+    </h2>
+    <p>{{ address.address }}</p>
+    <p>
+      {{ address.city }}, {{ address.state }}, {{ address.country }},
+      {{ address.pin_code }}
+    </p>
+  </div>
+  <div class="flex justify-between mt-5 mx-3">
+    <button class="ctm_btn">Edit</button>
+    <button class="ctm_btn_danger" (click)="deleteAddress(address._id)">
+      Delete
+    </button>
+  </div>
+</div>
