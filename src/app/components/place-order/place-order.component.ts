@@ -7,7 +7,6 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  FormControl,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -16,21 +15,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
-import { AddressType, ProductType } from '../../types';
+import { AddressType, ProductType, CreateAddressForm } from '../../types';
 
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { AccountService } from '../../services/account.service';
-
-interface CreateAddressForm {
-  full_name: FormControl<string | null>;
-  mobile_number: FormControl<string | null>;
-  state: FormControl<string | null>;
-  city: FormControl<string | null>;
-  pin_code: FormControl<string | null>;
-  landmark: FormControl<string | null>;
-  address: FormControl<string | null>;
-}
 
 interface Quantity {
   quantity: number;
