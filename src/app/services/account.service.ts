@@ -44,6 +44,13 @@ export class AccountService {
     );
   }
 
+  UpdateDefaultAddress(AddressId: string) {
+    return this.http.patch<{ success: boolean; message: string }>(
+      `${this.addressUrl}/make_default/${AddressId}`,
+      {}
+    );
+  }
+
   UpdateName(name: string) {
     return this.http.patch(`${this.baseUrl}/name`, { name });
   }

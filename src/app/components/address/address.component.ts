@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class AddressComponent {
   @Input() address!: AddressType;
   @Input() deleteAddress!: (AddressId: string) => void;
+  @Input() updateDefaultAddress!: (AddressId: string) => void;
 
 
 }

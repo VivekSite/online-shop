@@ -36,6 +36,7 @@ export class AddressPageComponent implements OnInit, OnDestroy {
   selectedAddress!: AddressType;
   private addressesRef!: Subscription;
   deleteAddress!: (AddressId: string) => void;
+  updateDefaultAddress!: (AddressId: string) => void;
 
   createAddressModal: boolean = false;
   createAddressForm!: FormGroup<CreateAddressForm>;
@@ -74,7 +75,7 @@ export class AddressPageComponent implements OnInit, OnDestroy {
           address: '',
         });
 
-        this.loadAddresses()
+        this.loadAddresses();
       });
   }
 
@@ -86,6 +87,21 @@ export class AddressPageComponent implements OnInit, OnDestroy {
         this.addresses = this.addresses.filter(
           (address) => address._id !== AddressId
         );
+      });
+    };
+
+    this.updateDefaultAddress = (AddressId: string) => {
+      this.accountService.UpdateDefaultAddress(AddressId).subscribe((res) => {
+        this.addresses = this.addresses.filter((address) => {
+          if (address.is_default === true) {
+            address.is_default = false;
+          }
+          if (address._id == AddressId) {
+            address.is_default = true;
+          }
+
+          return address;
+        });
       });
     };
 
