@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CartService } from '../../services/cart.service';
 import { CartDataType } from '../../types';
-import { CartProductComponent } from '../cart-product/cart-product.component';
-
 import { Subscription } from 'rxjs';
+
+import { SkeletonModule } from 'primeng/skeleton';
+
+import { CartProductComponent } from '../cart-product/cart-product.component';
+import { CartService } from '../../services/cart.service';
+
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, CartProductComponent],
+  imports: [CommonModule, CartProductComponent, SkeletonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -21,13 +23,16 @@ export class CartComponent implements OnInit, OnDestroy {
     products: [],
   };
   private userCartDataRef!: Subscription;
+  isLoading: boolean = true;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.userCartDataRef = this.cartService.getCartData().subscribe((res) => {
       this.userCartData = res.cartData;
       this.cartService.setCartSubTotal = res.subTotal;
+    this.isLoading = false;
     });
   }
 

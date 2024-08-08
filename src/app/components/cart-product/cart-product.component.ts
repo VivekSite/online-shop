@@ -21,7 +21,12 @@ interface Quantity {
 @Component({
   selector: 'app-cart-product',
   standalone: true,
-  imports: [FormsModule, CheckboxModule, CommonModule, DropdownModule],
+  imports: [
+    FormsModule,
+    CheckboxModule,
+    CommonModule,
+    DropdownModule,
+  ],
   templateUrl: './cart-product.component.html',
   styleUrl: './cart-product.component.scss',
 })
@@ -36,7 +41,7 @@ export class CartProductComponent implements OnInit {
   constructor(private cartService: CartService) {}
   ngOnInit() {
     this.checked = this.productData.isSelected;
-    this.selectedQuantity = { quantity: this.productData.quantity}
+    this.selectedQuantity = { quantity: this.productData.quantity };
 
     const price = this.productData.product.price;
     this.priceAfterDiscount = Math.round(
