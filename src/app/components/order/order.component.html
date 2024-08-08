@@ -1,4 +1,4 @@
-<div class="border rounded-md mt-4">
+<div class="border rounded-md mt-4" *ngIf="!isLoading">
   <!-- Order Header -->
   <div class="bg-slate-100 p-3 flex justify-between">
     <div class="flex items-center justify-between gap-2 md:gap-3">
@@ -142,3 +142,4 @@
     </div>
   </div>
 </div>
+<p-skeleton height="15rem" *ngIf="isLoading" styleClass="my-4" />

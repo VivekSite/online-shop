@@ -4,17 +4,21 @@ import { Router } from '@angular/router';
 
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
 import { AddressType, OrderType } from '../../types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [OverlayPanelModule, CommonModule, ButtonModule],
+  imports: [OverlayPanelModule, CommonModule, ButtonModule, SkeletonModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss',
 })
 export class OrderComponent implements OnInit {
   @Input() order!: OrderType;
+  @Input() isLoading$!: Observable<boolean>;
+  isLoading: boolean = true;
   months = [
     'Jan',
     'Feb',
@@ -41,12 +45,9 @@ export class OrderComponent implements OnInit {
     } ${date.getFullYear()}`;
 
     this.orderAddress = this.order.shipping_address;
-    // this.orderAddress = `
-    //   ${shipped?.address.line1}
-    //   ${shipped?.address.line2}
-    //   ${shipped?.city}, ${shipped?.state} ${shipped?.pin_code}
-    //   ${shipped?.country}
-    // `;
+    this.isLoading$.subscribe((data) => {
+      this.isLoading = data;
+    })
   }
 
   navigate(route: string, productId: string) {

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderType } from '../../types';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { OrderService } from '../../services/order.service';
 import { OrderComponent } from '../order/order.component';
@@ -16,11 +16,14 @@ import { OrderComponent } from '../order/order.component';
 export class OrdersComponent implements OnInit, OnDestroy {
   orders: OrderType[] = [];
   ordersRef!: Subscription;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(private orderService: OrderService) {}
   ngOnInit(): void {
+    this.isLoading$.next(true);
     this.ordersRef = this.orderService.GetOrders().subscribe((res) => {
       this.orders = res.orders;
+      this.isLoading$.next(false);
     });
   }
 

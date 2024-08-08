@@ -6,7 +6,10 @@
   (onChange)="toggleCheckbox()"
 />
 <div class="h-40 w-24 sm:h-56 sm:w-36 hover:cursor-pointer flex">
-  <img [src]="productData.product.images[0]" class="h-full object-contain p-4" />
+  <img
+    [src]="productData.product.images[0]"
+    class="h-full object-contain p-4"
+  />
 </div>
 <div class="flex flex-col flex-1 text-wrap">
   <h2 class="hover:cursor-pointer">{{ productData.product.title }}</h2>
@@ -22,6 +25,8 @@
 <p class="price">
   <sup>₹</sup>{{ priceAfterDiscount }} <br />
   <small *ngIf="!!productData.product.discount">
-    M.R.P:<del>{{ productData.product.price }}</del> ({{ productData.product.discount }}% off)
+    M.R.P:<del>{{ productData.product.price }}</del> ({{
+      productData.product.discount
+    }}% off)
   </small>
 </p>

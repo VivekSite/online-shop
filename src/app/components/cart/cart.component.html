@@ -1,6 +1,11 @@
 <div class="border shadow-md p-3 rounded-md">
   <h2 class="text-4xl font-medium my-4">Shopping Cart</h2>
   <hr />
+  <p-skeleton height="13rem" *ngIf="isLoading" styleClass="my-4"/>
+  <hr />
+  <p-skeleton height="13rem" *ngIf="isLoading" styleClass="my-4"/>
+  <hr />
+  <p-skeleton height="13rem" *ngIf="isLoading" styleClass="my-4"/>
   <app-cart-product
     *ngFor="let product of userCartData.products"
     class="w-full text-wrap flex justify-center items-center border-b-2"
