@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 export class OrderComponent implements OnInit {
   @Input() order!: OrderType;
   @Input() isLoading$!: Observable<boolean>;
+  @Input() cancelOrder!: (orderId: string) => void;
   isLoading: boolean = true;
   months = [
     'Jan',
@@ -34,20 +35,25 @@ export class OrderComponent implements OnInit {
     'Dec',
   ];
   orderDate!: string;
+  cancelDate!: string;
   orderAddress!: AddressType;
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    const date = new Date(this.order.created_at ? this.order.created_at : 0);
-    this.orderDate = `${date.getDate()} ${
+  getDateString(time: number | null): string {
+    const date = new Date(time ? time : 0);
+    return `${date.getDate()} ${
       this.months[date.getMonth()]
     } ${date.getFullYear()}`;
+  }
 
-    this.orderAddress = this.order.shipping_address;
+  ngOnInit(): void {
     this.isLoading$.subscribe((data) => {
       this.isLoading = data;
-    })
+    });
+    this.orderDate = this.getDateString(this.order.created_at);
+    this.cancelDate = this.getDateString(this.order.cancelled_at);
+    this.orderAddress = this.order.shipping_address;
   }
 
   navigate(route: string, productId: string) {

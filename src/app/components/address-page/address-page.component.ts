@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
-import { AccountService } from '../../services/account.service';
-
-import { AddressComponent } from '../address/address.component';
-import { AddressFormComponent } from '../address-form/address-form.component';
 import {
   AddressFormType,
   AddressType,
   UpdateAddressFormDataType,
 } from '../../types';
-import { FormGroup } from '@angular/forms';
+
+import { AddressComponent } from '../address/address.component';
+import { AddressFormComponent } from '../address-form/address-form.component';
+
+import { AccountService } from '../../services/account.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-address-page',
@@ -37,7 +38,10 @@ export class AddressPageComponent implements OnInit, OnDestroy {
     this.createAddressModal = data;
   }
 
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private toast: NotificationService
+  ) {}
 
   loadAddresses() {
     this.addressesRef = this.accountService.GetAddresses().subscribe((res) => {
@@ -53,6 +57,10 @@ export class AddressPageComponent implements OnInit, OnDestroy {
         this.addresses = this.addresses.filter(
           (address) => address._id !== AddressId
         );
+
+        if(res.success) {
+          this.toast.success("Success", res.message)
+        }
       });
     };
 
@@ -68,6 +76,10 @@ export class AddressPageComponent implements OnInit, OnDestroy {
 
           return address;
         });
+
+        if (res.success) {
+          this.toast.success("Success", res.message)
+        }
       });
     };
 
@@ -90,6 +102,11 @@ export class AddressPageComponent implements OnInit, OnDestroy {
             }
             return address;
           });
+
+          if (res.success) {
+            this.toast.success("Success", "Address updated successfully")
+          }
+
         });
     };
 
@@ -105,6 +122,12 @@ export class AddressPageComponent implements OnInit, OnDestroy {
           address: CreateAddressForm.value.address || '',
         })
         .subscribe((res) => {
+          if (res.success) {
+            this.toast.success('Success', 'Address added successfully');
+          } else if (!res.success) {
+            this.toast.error('Error', res.message);
+          }
+
           this.createAddressModal = false;
           CreateAddressForm.reset();
           this.loadAddresses();

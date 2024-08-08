@@ -1,5 +1,5 @@
 <div
-  class="w-[20rem] sm:w-[30rem] md:w-[22rem] p-4 border shadow-md rounded-md hover:bg-yellow-50"
+  class="w-[20rem] sm:w-[30rem] md:w-[22rem] p-4 border shadow-md rounded-md"
 >
   <div>
     <h2 class="font-semibold flex justify-between">
@@ -19,11 +19,12 @@
       </span>
     </h2>
     <p>{{ address.address }}</p>
-    <p>{{ address.landmark }}</p>
+    <p>{{ address.landmark }} </p>
     <p>
       {{ address.city }}, {{ address.state }}, {{ address.country }},
       {{ address.pin_code }}
     </p>
+    <p *ngIf="!address.landmark" class="text-white"> . </p>
   </div>
   <div class="flex justify-between mt-5">
     <button class="ctm_btn" (click)="updateAddressModal = true">Edit</button>

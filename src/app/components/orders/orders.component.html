@@ -1,1 +1,6 @@
-<app-order *ngFor="let order of orders" [isLoading$]="isLoading$.asObservable()" [order]="order" />
+<app-order
+  *ngFor="let order of orders"
+  [isLoading$]="isLoading$"
+  [order]="order"
+  [cancelOrder]="cancelOrder"
+/>

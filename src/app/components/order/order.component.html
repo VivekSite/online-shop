@@ -2,9 +2,13 @@
   <!-- Order Header -->
   <div class="bg-slate-100 p-3 flex justify-between">
     <div class="flex items-center justify-between gap-2 md:gap-3">
-      <span class="hidden md:block">
+      <span class="hidden md:block" *ngIf="!order.is_cancelled">
         <h3 class="font-medium text-[0.8rem]">ORDER PLACED</h3>
         <p class="text-xs">{{ orderDate }}</p></span
+      >
+      <span class="hidden md:block text-rose-600" *ngIf="order.is_cancelled">
+        <h3 class="font-medium text-[0.8rem]">CANCELLED</h3>
+        <p class="text-xs">{{ cancelDate }}</p></span
       >
       <span class="hidden md:block">
         <h3 class="font-medium text-[0.8rem]">QUANTITY</h3>
@@ -14,11 +18,11 @@
         <h3 class="font-medium text-[0.8rem]">TOTAL</h3>
         <p class="text-xs">₹{{ order.order_summary?.Total }}</p></span
       >
-      <span class="hidden md:block">
+      <span class="hidden md:block text-yellow-600">
         <h3 class="font-medium text-[0.8rem]">SHIPING</h3>
         <p class="text-xs">{{ order.shipping_status }}</p></span
       >
-      <span class="hidden md:block">
+      <span class="hidden md:block text-yellow-600">
         <h3 class="font-medium text-[0.8rem]">PAYMENT</h3>
         <p class="text-xs">{{ order.payment_status }}</p></span
       >
@@ -28,15 +32,25 @@
       >
       </span>
       <p-overlayPanel #menu class="md:hidden">
-        <span class="flex justify-between items-center gap-5">
+        <span
+          class="flex justify-between items-center gap-5"
+          *ngIf="!order.is_cancelled"
+        >
           <h3 class="font-semibold text-[0.8rem]">ORDER PLACED:</h3>
           <p class="text-xs">{{ orderDate }}</p>
         </span>
-        <span class="flex justify-between items-center gap-5">
+        <span
+          class="flex justify-between items-center gap-5 text-rose-600"
+          *ngIf="order.is_cancelled"
+        >
+          <h3 class="font-semibold text-[0.8rem]">CANCELLED:</h3>
+          <p class="text-xs">{{ cancelDate }}</p>
+        </span>
+        <span class="flex justify-between items-center gap-5 text-yellow-600">
           <h3 class="font-semibold text-[0.8rem]">SHIPING STATUS:</h3>
           <p class="text-xs">{{ order.shipping_status }}</p>
         </span>
-        <span class="flex justify-between items-center gap-5">
+        <span class="flex justify-between items-center gap-5 text-yellow-600">
           <h3 class="font-semibold text-[0.8rem]">PAYMENT STATUS:</h3>
           <p class="text-xs">{{ order.payment_status }}</p>
         </span>
@@ -129,9 +143,18 @@
       </button>
       <button
         class="bg-rose-400 active:bg-rose-500 ease-in-out duration-300 font-light text-sm px-3 py-2 rounded-md hover:cursor-pointer drop-shadow-md mt-3 text-white"
-        *ngIf="!(order.shipping_status === 'complete')"
+        *ngIf="!order.is_cancelled && !(order.shipping_status === 'complete')"
+        (click)="cancelOrder(order._id)"
       >
         Cancel
+      </button>
+
+      <button
+        class="bg-rose-300 font-light text-sm px-3 py-2 rounded-md drop-shadow-md mt-3 text-white"
+        *ngIf="order.is_cancelled"
+        disabled
+      >
+        Cancelled
       </button>
       <button
         class="ctm_btn text-xs mx-2"

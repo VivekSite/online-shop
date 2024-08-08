@@ -35,4 +35,11 @@ export class OrderService {
       }
     );
   }
+
+  CancelOrder(orderId: string) {
+    return this.http.patch<{ success: boolean; message: string, cancelled_at: number }>(
+      `${this.orderUrl}/${orderId}`,
+      {}
+    );
+  }
 }
