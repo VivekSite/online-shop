@@ -1,0 +1,23 @@
+<div class="flex flex-wrap gap-5 justify-center lg:justify-self-auto">
+  <app-address
+    *ngFor="let address of addresses"
+    [address]="address"
+    [deleteAddress]="deleteAddress"
+    [updateDefaultAddress]="updateDefaultAddress"
+    [updateAddress]="updateAddress"
+  >
+  </app-address>
+</div>
+<div class="flex justify-center mt-5">
+  <button class="ctm_btn" (click)="createAddressModal = true">
+    Add new address
+  </button>
+  <app-address-form
+    [header]="'Add New Address'"
+    [visible]="createAddressModal"
+    [type]="'Create'"
+    (onSubmit)="createAddress($event)"
+    (onClose)="closeCreateForm($event)"
+  >
+  </app-address-form>
+</div>

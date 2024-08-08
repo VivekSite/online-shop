@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AccountManageComponent } from './components/account-manage/account-manage.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
+import { AddressPageComponent } from './components/address-page/address-page.component';
 
 export const routes: Routes = [
   {
@@ -64,4 +65,9 @@ export const routes: Routes = [
     path: 'search',
     component: SearchComponent,
   },
+  {
+    path: 'address',
+    canActivate: [authGuard],
+    component: AddressPageComponent
+  }
 ];

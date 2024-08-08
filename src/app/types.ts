@@ -1,3 +1,5 @@
+import { FormControl } from '@angular/forms';
+
 export interface UserType {
   name: string;
   email: string;
@@ -92,3 +94,35 @@ export interface OrderType {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface AddressFormType {
+  full_name: FormControl<string | null>;
+  mobile_number: FormControl<string | null>;
+  state: FormControl<string | null>;
+  city: FormControl<string | null>;
+  pin_code: FormControl<string | null>;
+  landmark: FormControl<string | null>;
+  address: FormControl<string | null>;
+}
+
+export interface UpdateAddressFormDataType {
+  full_name?: string;
+  mobile_number?: string;
+  state?: string;
+  city?: string;
+  pin_code?: string;
+  landmark?: string;
+  address?: string;
+}
+
+export interface AddressFormDataType {
+  full_name: string;
+  mobile_number: string;
+  state: string;
+  city: string;
+  pin_code: string;
+  landmark: string;
+  address: string;
+}
+
+

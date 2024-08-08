@@ -25,11 +25,14 @@ export class OrderService {
     quantity: number,
     payment_method: string
   ) {
-    return this.http.post(`${this.orderUrl}/add`, {
-      productId,
-      addressId,
-      quantity,
-      payment_method,
-    });
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.orderUrl}/add`,
+      {
+        productId,
+        addressId,
+        quantity,
+        payment_method,
+      }
+    );
   }
 }

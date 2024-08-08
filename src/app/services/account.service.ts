@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
-import { AddressType, UserModelType } from '../types';
+import {
+  AddressType,
+  UserModelType,
+  UpdateAddressFormDataType,
+  AddressFormDataType,
+} from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -23,18 +28,33 @@ export class AccountService {
     );
   }
 
-  CreateAddress(CreateAddressFormData: {
-    full_name: string;
-    mobile_number: string;
-    state: string;
-    city: string;
-    pin_code: string;
-    landmark: string;
-    address: string;
-  }) {
+  DeleteAddress(AddressId: string) {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `${this.addressUrl}/${AddressId}`
+    );
+  }
+
+  CreateAddress(CreateAddressFormData: AddressFormDataType) {
     return this.http.post<{ success: boolean; message: string }>(
       `${this.addressUrl}/create`,
       CreateAddressFormData
+    );
+  }
+
+  UpdateDefaultAddress(AddressId: string) {
+    return this.http.patch<{ success: boolean; message: string }>(
+      `${this.addressUrl}/make_default/${AddressId}`,
+      {}
+    );
+  }
+
+  UpdateAddress(
+    AddressId: string,
+    UpdateAddressFormData: UpdateAddressFormDataType
+  ) {
+    return this.http.put<{ success: boolean; message: string }>(
+      `${this.addressUrl}/${AddressId}`,
+      { UpdateAddressFormData }
     );
   }
 
