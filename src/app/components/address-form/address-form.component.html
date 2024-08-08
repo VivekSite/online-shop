@@ -1,0 +1,161 @@
+<p-dialog
+  [header]="header"
+  [modal]="true"
+  [(visible)]="visible"
+  [draggable]="false"
+  (onHide)="emitOnClose()"
+>
+  <!-- Create Address Form -->
+  <form
+    class="mt-5 flex flex-col gap-6"
+    [formGroup]="addressForm"
+    (submit)="emitFormData()"
+  >
+    <!-- Name Input Area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="full_name"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('full_name')
+          }"
+          formControlName="full_name"
+        />
+        <label for="full_name">Full Name</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('full_name')"
+        >Name is required</small
+      >
+    </div>
+
+    <!-- Mobile number input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="mobile_number"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('mobile_number')
+          }"
+          formControlName="mobile_number"
+        />
+        <label for="mobile_number">Phone Number</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('mobile_number')"
+        >Phone number is required</small
+      >
+    </div>
+
+    <!-- State input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="state"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('state')
+          }"
+          formControlName="state"
+        />
+        <label for="state">State</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('state')"
+        >State is required</small
+      >
+    </div>
+
+    <!-- City Input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="city"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('city')
+          }"
+          formControlName="city"
+        />
+        <label for="city">City</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('city')"
+        >City is required</small
+      >
+    </div>
+
+    <!-- Pin Code Input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="pin_code"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('pin_code')
+          }"
+          formControlName="pin_code"
+        />
+        <label for="pin_code">Pin Code</label>
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('pin_code')">
+        Pin Code is required</small
+      >
+    </div>
+
+    <!-- Address Input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="address"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('address')
+          }"
+          formControlName="address"
+        />
+        <label for="address"
+          >Flat, House no., Building, Company, Apartment</label
+        >
+      </p-floatLabel>
+      <small class="text-rose-600" *ngIf="isInValidField('address')"
+        >Please fill this field!</small
+      >
+    </div>
+
+    <!-- Landmark Input area -->
+    <div class="ctm_input text-sm">
+      <p-floatLabel>
+        <input
+          id="landmark"
+          type="text"
+          pInputText
+          [ngClass]="{
+            'border-rose-600 outline outline-1 outline-rose-600':
+              isInValidField('landmark')
+          }"
+          formControlName="landmark"
+        />
+        <label for="landmark">Landmark (Optional)</label>
+      </p-floatLabel>
+    </div>
+
+    <!-- Buttons sextion -->
+    <div class="flex justify-content-end gap-2">
+      <button class="ctm_btn_danger" type="button" (click)="emitOnClose()">
+        Cancel
+      </button>
+      <button class="ctm_btn" type="submit">{{ type }}</button>
+    </div>
+  </form>
+</p-dialog>

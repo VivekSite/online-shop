@@ -95,7 +95,7 @@ export interface OrderType {
   createdAt: string;
 }
 
-export interface CreateAddressForm {
+export interface AddressFormType {
   full_name: FormControl<string | null>;
   mobile_number: FormControl<string | null>;
   state: FormControl<string | null>;
@@ -104,3 +104,25 @@ export interface CreateAddressForm {
   landmark: FormControl<string | null>;
   address: FormControl<string | null>;
 }
+
+export interface UpdateAddressFormDataType {
+  full_name?: string;
+  mobile_number?: string;
+  state?: string;
+  city?: string;
+  pin_code?: string;
+  landmark?: string;
+  address?: string;
+}
+
+export interface AddressFormDataType {
+  full_name: string;
+  mobile_number: string;
+  state: string;
+  city: string;
+  pin_code: string;
+  landmark: string;
+  address: string;
+}
+
+

@@ -1,33 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddressComponent } from '../address/address.component';
-import { AddressType, CreateAddressForm } from '../../types';
-import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
+
+import { AccountService } from '../../services/account.service';
+
+import { AddressComponent } from '../address/address.component';
+import { AddressFormComponent } from '../address-form/address-form.component';
 import {
-  ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { DialogModule } from 'primeng/dialog';
+  AddressFormType,
+  AddressType,
+  UpdateAddressFormDataType,
+} from '../../types';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-address-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    AddressComponent,
-    ReactiveFormsModule,
-    FloatLabelModule,
-    InputTextModule,
-    DropdownModule,
-    DialogModule,
-  ],
+  imports: [CommonModule, AddressComponent, AddressFormComponent],
   templateUrl: './address-page.component.html',
   styleUrl: './address-page.component.scss',
 })
@@ -37,46 +26,23 @@ export class AddressPageComponent implements OnInit, OnDestroy {
   private addressesRef!: Subscription;
   deleteAddress!: (AddressId: string) => void;
   updateDefaultAddress!: (AddressId: string) => void;
+  updateAddress!: (
+    AddressId: string,
+    UpdateAddressFormData: UpdateAddressFormDataType
+  ) => void;
+  createAddress!: (CreateAddressForm: FormGroup<AddressFormType>) => void;
 
   createAddressModal: boolean = false;
-  createAddressForm!: FormGroup<CreateAddressForm>;
+  closeCreateForm(data: boolean) {
+    this.createAddressModal = data;
+  }
 
-  constructor(
-    private accountService: AccountService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private accountService: AccountService) {}
 
   loadAddresses() {
     this.addressesRef = this.accountService.GetAddresses().subscribe((res) => {
       this.addresses = res.addresses;
     });
-  }
-
-  createAddress() {
-    this.accountService
-      .CreateAddress({
-        full_name: this.createAddressForm.value.full_name || '',
-        mobile_number: this.createAddressForm.value.mobile_number || '',
-        state: this.createAddressForm.value.state || '',
-        city: this.createAddressForm.value.city || '',
-        pin_code: this.createAddressForm.value.pin_code || '',
-        landmark: this.createAddressForm.value.landmark || '',
-        address: this.createAddressForm.value.address || '',
-      })
-      .subscribe((res) => {
-        this.createAddressModal = false;
-        this.createAddressForm.setValue({
-          full_name: '',
-          mobile_number: '',
-          state: '',
-          city: '',
-          pin_code: '',
-          landmark: '',
-          address: '',
-        });
-
-        this.loadAddresses();
-      });
   }
 
   ngOnInit(): void {
@@ -105,27 +71,45 @@ export class AddressPageComponent implements OnInit, OnDestroy {
       });
     };
 
-    this.createAddressForm = this.fb.group({
-      full_name: ['', [Validators.required, Validators.minLength(3)]],
-      mobile_number: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10),
-        ],
-      ],
-      state: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      pin_code: ['', [Validators.required]],
-      landmark: [''],
-      address: [''],
-    });
-  }
+    this.updateAddress = (
+      AddressId: string,
+      UpdateAddressFormData: UpdateAddressFormDataType
+    ) => {
+      this.accountService
+        .UpdateAddress(AddressId, UpdateAddressFormData)
+        .subscribe((res) => {
+          this.addresses = this.addresses.map((address) => {
+            if (address._id === AddressId) {
+              address.full_name = UpdateAddressFormData.full_name || '';
+              address.mobile_number = UpdateAddressFormData.mobile_number || '';
+              address.state = UpdateAddressFormData.state || '';
+              address.city = UpdateAddressFormData.city || '';
+              address.pin_code = UpdateAddressFormData.pin_code || '';
+              address.landmark = UpdateAddressFormData.landmark || '';
+              address.address = UpdateAddressFormData.address || '';
+            }
+            return address;
+          });
+        });
+    };
 
-  isInValidField(field: string): boolean {
-    const input = this.createAddressForm.get(field);
-    return !!(input?.dirty && input?.invalid);
+    this.createAddress = (CreateAddressForm: FormGroup<AddressFormType>) => {
+      this.accountService
+        .CreateAddress({
+          full_name: CreateAddressForm.value.full_name || '',
+          mobile_number: CreateAddressForm.value.mobile_number || '',
+          state: CreateAddressForm.value.state || '',
+          city: CreateAddressForm.value.city || '',
+          pin_code: CreateAddressForm.value.pin_code || '',
+          landmark: CreateAddressForm.value.landmark || '',
+          address: CreateAddressForm.value.address || '',
+        })
+        .subscribe((res) => {
+          this.createAddressModal = false;
+          CreateAddressForm.reset();
+          this.loadAddresses();
+        });
+    };
   }
 
   ngOnDestroy(): void {
