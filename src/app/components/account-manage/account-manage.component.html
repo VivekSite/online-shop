@@ -55,10 +55,6 @@
           >
             <input
               type="text"
-              minlength="6"
-              maxlength="6"
-              pattern="^d+$"
-              required
               placeholder="Enter OTP Here"
               class="p-2 rounded-md shadow-sm border"
               formControlName="otp"
@@ -108,9 +104,40 @@
         <button
           class="verify_btn"
           *ngIf="userData.mobile && !userData.isMobileVerified"
+          (click)="sendVerificationCode('Mobile')"
         >
           Verify Now
         </button>
+        <p-dialog
+          header="Enter OTP"
+          [modal]="true"
+          [(visible)]="otpModal"
+          [draggable]="false"
+          styleClass="w-[25rem]"
+        >
+          <form
+            class="mt-5 flex flex-col gap-6"
+            (submit)="verifyOTP('Email')"
+            [formGroup]="otpForm"
+          >
+            <input
+              type="text"
+              placeholder="Enter OTP Here"
+              class="p-2 rounded-md shadow-sm border"
+              formControlName="otp"
+            />
+            <div class="flex justify-content-end gap-2">
+              <button
+                class="ctm_btn_danger"
+                type="button"
+                (click)="otpModal = false"
+              >
+                Cancel
+              </button>
+              <button class="ctm_btn" type="submit">Verify</button>
+            </div>
+          </form>
+        </p-dialog>
         <button class="update_btn">Update</button>
       </div>
     </div>

@@ -68,6 +68,9 @@ export class AccountManageComponent implements OnInit, OnDestroy {
         } else if (type === 'Mobile') {
           this.userData.isMobileVerified = true;
         }
+        this.otpForm.setValue({
+          otp: '',
+        });
         this.otpModal = false;
       });
     };
