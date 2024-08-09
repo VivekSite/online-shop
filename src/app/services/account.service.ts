@@ -15,6 +15,7 @@ export class AccountService {
   constructor(private http: HttpClient) {}
   private baseUrl = `${environment.BASE_URL}/user`;
   private addressUrl = `${environment.BASE_URL}/address`;
+  private authUrl = `${environment.BASE_URL}/auth`;
 
   GetUserData() {
     return this.http.get<{ success: boolean; userData: UserModelType }>(
@@ -55,6 +56,23 @@ export class AccountService {
     return this.http.put<{ success: boolean; message: string }>(
       `${this.addressUrl}/${AddressId}`,
       { UpdateAddressFormData }
+    );
+  }
+
+  SendVerificationCode(
+    type: 'Email' | 'Mobile',
+    mobile_number: string | null = null
+  ) {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.authUrl}/otp`,
+      { type, mobile_number }
+    );
+  }
+
+  VerifyOTP(type: 'Email' | 'Mobile', otp: number) {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.authUrl}/verify/otp`,
+      { type, otp }
     );
   }
 
