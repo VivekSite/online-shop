@@ -72,7 +72,7 @@ export interface AddressType {
 
 export interface OrderType {
   _id: string;
-  user_id: string;
+  user_id: UserModelType ;
   product: ProductType;
   quantity: number;
   shipping_address: AddressType;

@@ -13,6 +13,8 @@ import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { AccountService } from '../../services/account.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
+import { WhatsappMessageService } from '../../services/whatsapp-message.service';
+import { NotificationService } from '../../services/notification.service';
 
 interface Quantity {
   quantity: number;
@@ -52,6 +54,7 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
   closeCreateForm(data: boolean) {
     this.createAddressModal = data;
   }
+  placeOrder!: () => void;
 
   selectedQuantity: Quantity = { quantity: 1 };
   quantity: Quantity[] = [
@@ -78,7 +81,9 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
     private order: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private whatsappMessage: WhatsappMessageService,
+    private toast: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -117,19 +122,31 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
             });
         });
     };
-  }
 
-  placeOrder() {
-    this.order
-      .PlaceOrder(
-        this.product._id,
-        this.selectedAddress._id,
-        this.selectedQuantity.quantity,
-        this.selectedPaymentType.name
-      )
-      .subscribe((res) => {
-        this.router.navigate(['/orders']);
-      });
+    this.placeOrder = () => {
+      this.order
+        .PlaceOrder(
+          this.product._id,
+          this.selectedAddress._id,
+          this.selectedQuantity.quantity,
+          this.selectedPaymentType.name
+        )
+        .subscribe((res) => {
+          this.accountService.GetUserData().subscribe((user) => {
+            this.whatsappMessage
+              .SendWhatsappMessage(
+                user.userData.mobile,
+                `Hey ${user.userData.name}, \nYou just ordered a product: ${this.product.title}\n\nHope you like the experience and don't forget to give a review`
+              )
+              .subscribe();
+          });
+          this.toast.success(
+            'Success',
+            'Your order has been successfully processed'
+          );
+          this.router.navigate(['/orders']);
+        });
+    };
   }
 
   ngOnDestroy(): void {

@@ -21,6 +21,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   cancelOrder!: (orderId: string) => void;
 
+  order!: OrderType;
+  orderRef!: Subscription;
+
   constructor(
     private orderService: OrderService,
     private toast: NotificationService,
@@ -49,12 +52,25 @@ export class OrdersComponent implements OnInit, OnDestroy {
             }
             return order;
           });
+
+          this.orderRef = this.orderService
+            .GetOrderById(orderId)
+            .subscribe((res) => {
+              this.order = res.order;
+              this.whatsappMessage
+                .SendWhatsappMessage(
+                  res.order.user_id.mobile,
+                  `You just cancelled the order with orderId: ${orderId}`
+                )
+                .subscribe();
+            });
         }
       });
     };
   }
 
   ngOnDestroy(): void {
+    this.orderRef.unsubscribe();
     this.ordersRef.unsubscribe();
   }
 }

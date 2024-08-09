@@ -11,7 +11,7 @@ export class WhatsappMessageService {
   constructor(private http: HttpClient) {}
 
   SendWhatsappMessage(mobile_number: string, message: string) {
-    this.http.post<{ success: boolean; message: string }>(
+   return this.http.post<{ success: boolean; message: string }>(
       `${this.messageUrl}`,
       { mobile_number, message }
     );
