@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderType } from '../../types';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, firstValueFrom } from 'rxjs';
 
 import { OrderService } from '../../services/order.service';
 import { OrderComponent } from '../order/order.component';
@@ -37,35 +37,45 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.isLoading$.next(false);
     });
 
-    this.cancelOrder = (orderId: string) => {
-      this.orderService.CancelOrder(orderId).subscribe((res) => {
-        if (res.success) {
-          let cancelledOrder: OrderType;
-          this.toast.success('Success', res.message);
-          this.orders = this.orders.map((order) => {
-            if (order._id === orderId) {
-              cancelledOrder = order;
-              order.cancelled_at = res.cancelled_at;
-              order.shipping_status = 'cancelled';
-              order.payment_status = 'cancelled';
-              order.is_cancelled = true;
-            }
-            return order;
-          });
+    this.cancelOrder = async (orderId: string) => {
+      // Cancel the order
+      const CancelOrderRes = await firstValueFrom(
+        this.orderService.CancelOrder(orderId)
+      );
 
-          this.orderRef = this.orderService
-            .GetOrderById(orderId)
-            .subscribe((res) => {
-              this.order = res.order;
-              this.whatsappMessage
-                .SendWhatsappMessage(
-                  res.order.user_id.mobile,
-                  `You just cancelled the order with orderId: ${orderId}`
-                )
-                .subscribe();
-            });
+      // Show notification
+      let cancelledOrder: OrderType;
+      this.toast.success('Success', CancelOrderRes.message);
+
+      // Update order details on frontend
+      this.orders = this.orders.map((order) => {
+        if (order._id === orderId) {
+          cancelledOrder = order;
+          order.cancelled_at = CancelOrderRes.cancelled_at;
+          order.shipping_status = 'cancelled';
+          order.payment_status = 'cancelled';
+          order.is_cancelled = true;
         }
+        return order;
       });
+
+      // Get the order details
+      const GetOrderByIdRes = await firstValueFrom(
+        this.orderService.GetOrderById(orderId)
+      );
+
+      // Send Whatsapp message if it is verified
+      if (
+        GetOrderByIdRes.order.user_id.mobile &&
+        GetOrderByIdRes.order.user_id.isMobileVerified
+      ) {
+        await firstValueFrom(
+          this.whatsappMessage.SendWhatsappMessage(
+            GetOrderByIdRes.order.user_id.mobile,
+            `Hey, ${GetOrderByIdRes.order.user_id.name} \nYou just cancelled your order with orderId: ${orderId} \nAnd the product was ${GetOrderByIdRes.order.product.title}`
+          )
+        );
+      }
     };
   }
 
