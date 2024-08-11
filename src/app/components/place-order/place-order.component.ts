@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,6 +13,8 @@ import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { AccountService } from '../../services/account.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
+import { WhatsappMessageService } from '../../services/whatsapp-message.service';
+import { NotificationService } from '../../services/notification.service';
 
 interface Quantity {
   quantity: number;
@@ -52,6 +54,7 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
   closeCreateForm(data: boolean) {
     this.createAddressModal = data;
   }
+  placeOrder!: () => void;
 
   selectedQuantity: Quantity = { quantity: 1 };
   quantity: Quantity[] = [
@@ -78,7 +81,9 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
     private order: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private whatsappMessage: WhatsappMessageService,
+    private toast: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -94,9 +99,11 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
       this.addresses = res.addresses;
     });
 
-    this.createAddress = (CreateAddressForm: FormGroup<AddressFormType>) => {
-      this.accountService
-        .CreateAddress({
+    this.createAddress = async (
+      CreateAddressForm: FormGroup<AddressFormType>
+    ) => {
+      await firstValueFrom(
+        this.accountService.CreateAddress({
           full_name: CreateAddressForm.value.full_name || '',
           mobile_number: CreateAddressForm.value.mobile_number || '',
           state: CreateAddressForm.value.state || '',
@@ -105,31 +112,53 @@ export class PlaceOrderComponent implements OnInit, OnDestroy {
           landmark: CreateAddressForm.value.landmark || '',
           address: CreateAddressForm.value.address || '',
         })
-        .subscribe((res) => {
-          this.createAddressModal = false;
-          CreateAddressForm.reset();
+      );
 
-          this.addressesRef.unsubscribe();
-          this.addressesRef = this.accountService
-            .GetAddresses()
-            .subscribe((res) => {
-              this.addresses = res.addresses;
-            });
-        });
+      this.createAddressModal = false;
+      CreateAddressForm.reset();
+
+      this.addresses = (
+        await firstValueFrom(this.accountService.GetAddresses())
+      ).addresses;
     };
-  }
 
-  placeOrder() {
-    this.order
-      .PlaceOrder(
-        this.product._id,
-        this.selectedAddress._id,
-        this.selectedQuantity.quantity,
-        this.selectedPaymentType.name
-      )
-      .subscribe((res) => {
-        this.router.navigate(['/orders']);
-      });
+    this.placeOrder = async () => {
+      await firstValueFrom(
+        this.order.PlaceOrder(
+          this.product._id,
+          this.selectedAddress._id,
+          this.selectedQuantity.quantity,
+          this.selectedPaymentType.name
+        )
+      );
+
+      // Get the user data
+      const GetUserDataRes = await firstValueFrom(
+        this.accountService.GetUserData()
+      );
+
+      // Send Whatsapp Message if mobile number is verified
+      if (
+        GetUserDataRes.userData.mobile &&
+        GetUserDataRes.userData.isMobileVerified
+      ) {
+        await firstValueFrom(
+          this.whatsappMessage.SendWhatsappMessage(
+            GetUserDataRes.userData.mobile,
+            `Hey ${GetUserDataRes.userData.name}, \nYou just ordered a product: ${this.product.title}\n\nHope you like the experience and don't forget to give a review`
+          )
+        );
+      }
+
+      // Send notification
+      this.toast.success(
+        'Success',
+        'Your order has been successfully processed'
+      );
+
+      // Navigate to orders page
+      this.router.navigate(['/orders']);
+    };
   }
 
   ngOnDestroy(): void {

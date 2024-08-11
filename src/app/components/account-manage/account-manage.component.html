@@ -25,13 +25,52 @@
             class="text-rose-400 font-normal ml-2"
             >Your email is not verified!</small
           >
+          <small
+            *ngIf="userData.isEmailVerified"
+            class="text-green-400 font-normal ml-2"
+            >Verified!</small
+          >
         </h3>
         <p class="text-sm">{{ userData.email }}</p>
       </div>
       <div class="flex flex-col gap-2">
-        <button class="verify_btn" *ngIf="!userData.isEmailVerified">
+        <button
+          class="verify_btn"
+          *ngIf="!userData.isEmailVerified"
+          (click)="sendVerificationCode('Email')"
+        >
           Verify Now
         </button>
+        <p-dialog
+          header="Enter OTP"
+          [modal]="true"
+          [(visible)]="otpModal"
+          [draggable]="false"
+          styleClass="w-[25rem]"
+        >
+          <form
+            class="mt-5 flex flex-col gap-6"
+            (submit)="verifyOTP('Email')"
+            [formGroup]="otpForm"
+          >
+            <input
+              type="text"
+              placeholder="Enter OTP Here"
+              class="p-2 rounded-md shadow-sm border"
+              formControlName="otp"
+            />
+            <div class="flex justify-content-end gap-2">
+              <button
+                class="ctm_btn_danger"
+                type="button"
+                (click)="otpModal = false"
+              >
+                Cancel
+              </button>
+              <button class="ctm_btn" type="submit">Verify</button>
+            </div>
+          </form>
+        </p-dialog>
         <button class="update_btn">Update</button>
       </div>
     </div>
@@ -48,6 +87,11 @@
             Your phone number is not verified!
           </small>
           <small
+            *ngIf="userData.isMobileVerified"
+            class="text-green-400 font-normal ml-2"
+            >Verified!</small
+          >
+          <small
             *ngIf="!userData.mobile"
             class="text-rose-400 font-normal ml-2"
           >
@@ -60,9 +104,40 @@
         <button
           class="verify_btn"
           *ngIf="userData.mobile && !userData.isMobileVerified"
+          (click)="sendVerificationCode('Mobile')"
         >
           Verify Now
         </button>
+        <p-dialog
+          header="Enter OTP"
+          [modal]="true"
+          [(visible)]="otpModal"
+          [draggable]="false"
+          styleClass="w-[25rem]"
+        >
+          <form
+            class="mt-5 flex flex-col gap-6"
+            (submit)="verifyOTP('Email')"
+            [formGroup]="otpForm"
+          >
+            <input
+              type="text"
+              placeholder="Enter OTP Here"
+              class="p-2 rounded-md shadow-sm border"
+              formControlName="otp"
+            />
+            <div class="flex justify-content-end gap-2">
+              <button
+                class="ctm_btn_danger"
+                type="button"
+                (click)="otpModal = false"
+              >
+                Cancel
+              </button>
+              <button class="ctm_btn" type="submit">Verify</button>
+            </div>
+          </form>
+        </p-dialog>
         <button class="update_btn">Update</button>
       </div>
     </div>
@@ -71,7 +146,7 @@
     <div class="flex justify-between items-center">
       <div>
         <h3 class="font-semibold">Password</h3>
-        <p class="text-sm"> xxxxxxxx </p>
+        <p class="text-sm">xxxxxxxx</p>
       </div>
       <div class="flex flex-col gap-2">
         <button class="update_btn">Update</button>

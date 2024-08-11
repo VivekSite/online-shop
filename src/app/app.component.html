@@ -2,9 +2,12 @@
 <app-header class="sticky top-0 z-10"></app-header>
 
 <!-- Main -->
-<main
-  class="h-auto flex-grow my-5 px-5 lg:px-[10rem] xl:px-[15rem]"
->
+<main class="h-auto flex-grow my-5 px-5 lg:px-[10rem] xl:px-[15rem]">
+  <p-toast
+    position="top-right"
+    [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+    class="mt-[30rem]"
+  />
   <router-outlet></router-outlet>
 </main>
 

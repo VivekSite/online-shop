@@ -20,7 +20,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   products: ProductType[] = [];
   private productRef!: Subscription;
 
-  constructor(private _productService: ProductService) {}
+  constructor(
+    private _productService: ProductService,
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;

@@ -19,6 +19,12 @@ export class OrderService {
     }>(this.orderUrl);
   }
 
+  GetOrderById(orderId: string) {
+    return this.http.get<{ success: boolean; order: OrderType, message?: string }>(
+      `${this.orderUrl}/${orderId}`
+    );
+  }
+
   PlaceOrder(
     productId: string,
     addressId: string,
@@ -34,5 +40,13 @@ export class OrderService {
         payment_method,
       }
     );
+  }
+
+  CancelOrder(orderId: string) {
+    return this.http.patch<{
+      success: boolean;
+      message: string;
+      cancelled_at: number;
+    }>(`${this.orderUrl}/${orderId}`, {});
   }
 }
